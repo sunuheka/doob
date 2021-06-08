@@ -1,0 +1,136 @@
+{
+    "key": "group_6013eda563520",
+    "title": "Page Components",
+    "fields": [
+        {
+            "key": "field_6013edae058bb",
+            "label": "Page Components",
+            "name": "page_components",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "6013edba4e5cf": {
+                    "key": "6013edba4e5cf",
+                    "name": "banner",
+                    "label": "Banner",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6013ef3f9ab7d": {
+                    "key": "layout_6013ef3f9ab7d",
+                    "name": "about",
+                    "label": "About",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6013f5dc84d85": {
+                    "key": "layout_6013f5dc84d85",
+                    "name": "pricing",
+                    "label": "Pricing",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6013f60a84d86": {
+                    "key": "layout_6013f60a84d86",
+                    "name": "services",
+                    "label": "Services",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6013f61384d87": {
+                    "key": "layout_6013f61384d87",
+                    "name": "works",
+                    "label": "Works",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_60167a4663223": {
+                    "key": "layout_60167a4663223",
+                    "name": "testimonial",
+                    "label": "Testimonial",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_60167a5163224",
+                            "label": "",
+                            "name": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Row",
+            "min": "",
+            "max": ""
+        },
+        {
+            "key": "field_6013f41b84d84",
+            "label": "",
+            "name": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1612085901
+}

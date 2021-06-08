@@ -1,0 +1,112 @@
+/**
+ * Action admin init
+ */
+add_action( 'admin_init', function() {
+	//Removes editor, thumbnail on static front page and posts page
+	$post_id = ( isset( $_GET['post'] ) && $_GET['post'] !== '' ) ? $_GET['post'] : '';
+
+	if ( 'page' === get_post_type( $post_id ) &&
+		( 'page-template-fullwidth.php' === get_post_meta( $post_id, '_wp_page_template', true ) || get_option( 'page_for_posts' ) === $post_id ) )
+	{
+		remove_post_type_support( 'page', 'editor' );
+		remove_post_type_support( 'page', 'thumbnail' );
+	}
+});
+
+/**
+ * Adds menu node to admin bar
+ */
+add_filter( 'admin_bar_menu', function() {
+    global $wp_admin_bar;
+
+    if ( current_user_can( 'manage_options' ) ) {
+        $wp_admin_bar->add_node(
+            [
+                'id' => 'sync_social_feeds',
+                'title' => __( 'Sync Social Feeds', 'wptemplate' ),
+                'href' => add_query_arg(
+                    [
+                        'sync_action' => 'social_feed',
+                        '_wpnonce' => wp_create_nonce( 'sync_feed' ),
+                    ],
+                    admin_url()
+                ),
+            ]
+        );
+    }
+}, 999 );
+
+/**
+ * Admin notices
+ */
+add_action( 'admin_notices', function() {
+    if ( is_admin() && current_user_can( 'manage_options' ) ) {
+        $action = ( isset( $_REQUEST['sync_action'] ) && $_REQUEST['sync_action'] !== '' ) ? $_REQUEST['sync_action'] : '';
+
+        if ( ! empty( $action ) && 'social_feed' === $action ) {
+            check_admin_referer( 'sync_feed' );
+
+            global $class_name;
+
+            include_once ABSPATH . '/api/config.php';
+            include_once ABSPATH . '/api/vendors/twitter-api-exchange.php';
+            include_once ABSPATH . '/api/class.cfn-social-feed.php';
+
+            $result = $class_name->sync_feeds();
+
+            $status = 'error';
+            $message = __( 'Something went wrong when syncing the feeds, please try again', 'wptemplate' );
+
+            if ( $result ) {
+                $status = 'updated';
+                $message = __( 'Social feeds synced.', 'wptemplate' );
+            }
+
+            echo '<div class="' . $status . '"><p>' . $message . '</p></div>';
+        }
+    }
+});
+
+wp_add_inline_script(
+	'gform_gravityforms',
+	'
+	(function( factory ) {
+		factory( jQuery.datepicker );
+	}
+	(function( datepicker ) {
+		datepicker.regional.sv = {
+			closeText: "Stäng",
+			prevText: "Förra",
+			nextText: "Nästa",
+			currentText: "Idag",
+			monthNames: [ "Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December" ],
+			monthNamesShort: [ "Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec" ],
+			dayNamesShort: [ "Sön","Mån","Tis","Ons","Tor","Fre","Lör" ],
+			dayNames: [ "Söndag","Måndag","Tisdag","Onsdag","Torsdag","Fredag","Lördag" ],
+			dayNamesMin: [ "Sö","Må","Ti","On","To","Fr","Lö" ],
+			weekHeader: "Ve",
+			dateFormat: "yy-mm-dd",
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: "",
+		};
+
+		datepicker.setDefaults( datepicker.regional.sv );
+
+		return datepicker.regional.sv;
+	}) );'
+);
+
+
+if ( function_exists( 'register_sidebar' ) ) {
+	register_sidebar([
+		'name' => __( 'Sidebar 1', 'wptemplate' ),
+		'id' => 'sidebar-1',
+		'description' => __( 'Widget area for sidebar 1', 'wptemplate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+	]);
+}

@@ -1,0 +1,58 @@
+.btn {
+	display: inline-block;
+	border: none;
+	padding: 10px 30px;
+	font-size: 18px;
+	cursor: pointer;
+	transition: all 0.5s ease-in-out;
+
+	@media all and ( max-width: 767px ) {
+		padding: 10px 20px;
+	}
+
+	&.btn {
+		&-contact {
+			background-color: $white;
+			border-radius: 6px;
+			min-height: 50px;
+			padding-left: 30px;
+			padding-right: 20px;
+			font-size: 1rem;
+			color: $red;
+
+			&:hover {
+				.arrow-right {
+					transform: translateX( 10px );
+				}
+			}
+		}
+
+		&_with_borderradius {
+			@include border-radius( 3.125rem );
+		}
+
+		&_red {
+			background-color: $red;
+			color: $white;
+			padding-left: 35px;
+			padding-right: 35px;
+
+			&:hover {
+				background-color: $blue;
+			}
+		}
+
+		&-link {
+			color: $blue;
+
+			&:hover {
+				background-color: $blue;
+				color: $white;
+			}
+		}
+	}
+
+	+ .btn {
+		margin-left: 20px;
+	}
+}

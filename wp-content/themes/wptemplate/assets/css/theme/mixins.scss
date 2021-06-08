@@ -1,0 +1,8 @@
+@mixin m-mq( $breakpoint ) {
+	@error "Use `@include media-breakpoint-down` instead.";
+	@content;
+}
+
+@mixin border-radius( $top-left, $top-right, $bottom-right, $bottom-left ) {
+	border-radius: $top-left $top-right $bottom-right $bottom-left;
+}
